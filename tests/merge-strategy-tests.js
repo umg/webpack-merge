@@ -34,6 +34,80 @@ function mergeStrategyTests(merge) {
     })(a, b), result);
   });
 
+  it('should allow setting to rule match replace', function () {
+    const a = {
+      module: {
+        rules: [
+          {
+            test: /aaa\.ext$/,
+            options: {
+              value: 'initial aaa'
+            }
+          },
+          {
+            test: /bbb\.ext$/,
+            options: {
+              value: 'initial bbb'
+            }
+          },
+          {
+            test: /ccc\.ext$/,
+            options: {
+              value: 'initial ccc'
+            }
+          }
+        ]
+      }
+    };
+    const b = {
+      module: {
+        rules: [
+          {
+            test: /bbb\.ext$/,
+            options: {
+              value: 'new bbb'
+            }
+          },
+          {
+            test: /ccc\.ext$/,
+            options: {
+              value: 'new ccc'
+            }
+          }
+        ]
+      }
+    };
+
+    const result = {
+      module: {
+        rules: [
+          {
+            test: /aaa\.ext$/,
+            options: {
+              value: 'initial aaa'
+            }
+          },
+          {
+            test: /bbb\.ext$/,
+            options: {
+              value: 'new bbb'
+            }
+          },
+          {
+            test: /ccc\.ext$/,
+            options: {
+              value: 'new ccc'
+            }
+          }
+        ]
+      }
+    };
+
+    assert.deepEqual(merge({
+      'module.rules': 'match-replace'
+    })(a, b), result);
+  });
+
   it('should allow setting to object append', function () {
     const a = {
       entry: {
