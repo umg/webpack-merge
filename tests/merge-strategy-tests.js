@@ -73,6 +73,12 @@ function mergeStrategyTests(merge) {
             options: {
               value: 'new ccc'
             }
+          },
+          {
+            test: /ddd\.ext$/,
+            options: {
+              value: 'new ddd'
+            }
           }
         ]
       }
@@ -97,6 +103,12 @@ function mergeStrategyTests(merge) {
             test: /ccc\.ext$/,
             options: {
               value: 'new ccc'
+            }
+          },
+          {
+            test: /ddd\.ext$/,
+            options: {
+              value: 'new ddd'
             }
           }
         ]

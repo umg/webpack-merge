@@ -66,10 +66,7 @@ const mergeSmartStrategy = (rules = {}) => merge({
 
           return b;
         case 'match-replace':
-          return a.map((seenRule) => {
-            const match = b.find(newRule => seenRule.test.toString() === newRule.test.toString());
-            return match || seenRule;
-          });
+          return [...replaceMatch(a, b), ...removeMatch(b, a)];
         default: // append
           return unionWith(a, b, uniteRules.bind(null, rules, key));
       }
@@ -79,17 +76,24 @@ const mergeSmartStrategy = (rules = {}) => merge({
   },
   customizeObject: customizeObject(rules)
 });
-
+function replaceMatch(a, b) {
+  return a.map((seenRule) => {
+    const match = b.find(newRule => seenRule.test.toString() === newRule.test.toString());
+    return match || seenRule;
+  });
+}
+function removeMatch(a, b) {
+  return a.filter((seenRule) => {
+    return !b.find(newRule => seenRule.test.toString() === newRule.test.toString());
+  });
+}
 function customizeArray(rules) {
   return (a, b, key) => {
     switch (rules[key]) {
       case 'prepend':
         return [...b, ...a];
       case 'match-replace':
-        return a.map((seenRule) => {
-          const match = b.find(newRule => seenRule.test.toString() === newRule.test.toString());
-          return match || seenRule;
-        });
+        return [...replaceMatch(a, b), ...removeMatch(b, a)];
       case 'replace':
         return b;
       default: // append
