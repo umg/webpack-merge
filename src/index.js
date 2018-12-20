@@ -67,7 +67,9 @@ const mergeSmartStrategy = (rules = {}) => merge({
           return b;
         case 'match-replace':
           return a.map(seenRule => {
-            const match = b.find(newRule => seenRule.test.toString() === newRule.test.toString());
+            const match = b.find(newRule => {
+              return seenRule.test.toString() === newRule.test.toString()
+            });
             return match || seenRule;
           });
         default: // append
@@ -87,7 +89,9 @@ function customizeArray(rules) {
         return [...b, ...a];
       case 'match-replace':
         return a.map(seenRule => {
-          const match = b.find(newRule => seenRule.test.toString() === newRule.test.toString());
+          const match = b.find(newRule => {
+            return seenRule.test.toString() === newRule.test.toString()
+          });
           return match || seenRule;
         });
       case 'replace':
