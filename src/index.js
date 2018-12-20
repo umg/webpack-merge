@@ -83,9 +83,7 @@ function replaceMatch(a, b) {
   });
 }
 function removeMatch(a, b) {
-  return a.filter((seenRule) => {
-    return !b.find(newRule => seenRule.test.toString() === newRule.test.toString());
-  });
+  return a.filter(seenRule => !b.find(newRule => seenRule.test.toString() === newRule.test.toString()));
 }
 function customizeArray(rules) {
   return (a, b, key) => {
