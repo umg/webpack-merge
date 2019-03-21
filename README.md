@@ -1,6 +1,11 @@
 [![build status](https://secure.travis-ci.org/survivejs/webpack-merge.svg)](http://travis-ci.org/survivejs/webpack-merge) [![codecov](https://codecov.io/gh/survivejs/webpack-merge/branch/master/graph/badge.svg)](https://codecov.io/gh/survivejs/webpack-merge)
 
 # webpack-merge - Merge designed for Webpack
+## This fork adds another merge strategy called match-replace
+
+***match-replace*** 
+- searches replaces webpack loaders based on matching 'test' values
+- this strategy is used by the angular-cli custom builder(@angular-builders/custom-webpack:browser) for https://github.com/umg/umpg-songs-web to know how to override default webpack sass-loader configuration. In this case, only the sass-loader test loader needed to be replaced (append, prened and replace strategies won't work)
 
 **webpack-merge** provides a `merge` function that concatenates arrays and merges objects creating a new object. If functions are encountered, it will execute them, run the results through the algorithm, and then wrap the returned values within a function again.
 
